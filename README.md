@@ -1,6 +1,6 @@
 # GBox软件源制作教程
 
-GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制作软件源无需使用自己独立的服务器，可将软件源文件，和相关资源（如ipa包，图片素材等）上传至公开的公共平台，如Github等
+GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制作软件源无需使用自己独立的服务器，可将软件源文件，和相关资源（如ipa包，图片素材等）上传至公开的公共平台，如Github等 (直接支持蓝奏云的链接，请看以下例子)
 
 - #### 软件源制作流程
 1. 新建一个空文本文件，按规下文范编写软件源json文件，例子如下:
@@ -25,6 +25,16 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
             "appImage": "https://gbox.run/Public/images/icon.png",
             "appPackage": "https://dev.tencent.com/u/wallace_leung/p/AppHub/git/raw/master/Xero/GBox_v1.3.6_1122.ipa",
             "appDescription": "App的描述"
+        },
+
+        {
+            "appType": "SELF_SIGN",
+            "appCateIndex": 1,
+            "appUpdateTime": "2019-11-23T08:00:00+0800",
+            "appName": "LSearch",
+            "appVersion": "1.0",
+            "appPlist": "https://www.lanzous.com/i7rn4hi",
+            "appDescription": "VIP测试用，点下载，然后签名，再安装，如果能正常打开，则证明VIP成功"
         }
     ]
 }

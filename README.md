@@ -9,6 +9,8 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
     "version": "1.0",
     "sourceName": "GBox官方软件源",
     "sourceAuthor": "GBox Official",
+    "sourceLinkTitle": "主页",
+    "sourceLinkUrl": "https://gbox.run",
     "sourceImage": "https://gbox.run/Public/images/source.png",
     "sourceUpdateTime": "2019-11-23T11:00:00+0800", 
     "sourceDescription": "GBox官方软件源的描述",
@@ -35,14 +37,25 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
             "appVersion": "1.0",
             "appPlist": "https://www.lanzous.com/i7rn4hi",
             "appDescription": "VIP测试用，点下载，然后签名，再安装，如果能正常打开，则证明VIP成功"
-        }
+        },
+
+        {
+            "appType": "LINK",
+            "appCateIndex": 0,
+            "appUpdateTime": "2019-12-27T9:30:00+0800",
+            "appName": "GBox官网",
+            "appVersion": "1.0",
+            "appImage": "https://dev.tencent.com/u/wallace_leung/p/AppHub/git/raw/master/Xero/icon512.png",
+            "appLink": "https://gbox.run",
+            "appDescription": "网页连接测试"
+        },
     ]
 }
 ```
 
 2. 所编写的源内容必须为合法json，可以使用 [json.cn](https://www.json.cn/) 进行语法检测
 
-3. 将源内容保存以.appsrc后缀结尾的文本文件，例如gbox.appsrc，将其导入至GBox中，然后点击该文件，再点击加密，即可生成加密后的源文件(加密不是必须的，但为了保护自身劳动成功，建议都加密)，上面例子加密后的内容如下:
+3. 将源内容保存以.appsrc后缀结尾的文本文件，例如gbox.appsrc，将其导入至GBox中，然后点击该文件，再点击加密，即可生成加密后的源文件(加密不是必须的，但为了保护自身劳动成果，建议都加密)，上面例子加密后的内容如下:
 ```
 {
   "appCategories" : [
@@ -67,6 +80,8 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
     "version": "1.0",   # 源版本号，当前为1.0， 只能向下兼容
     "sourceName": "GBox官方源",     # 源名称 
     "sourceAuthor": "Rosi",        # 源作者
+    "sourceLinkTitle": "主页",      # 链接标题，将于源主页的右上角显示 
+    "sourceLinkUrl": "https://gbox.run",       # 目标链接
     "sourceImage": "http://xxx.com/src.png",   # 源图片链接
     "sourceUpdateTime": "2019-10-10T13:00:00+0800",    # 源更新时间(此为UTC时间，即此时间为北京时间-8小时，北京为东八区，所以以+0800表示，)，注意如果修改了app列表，而不更新此时间，GBox不会去解析此源的app列表
     "sourceDescription": "源的简单描述",
@@ -82,6 +97,7 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
             # SHAREING 分享类型，即直接提取app store得来的ipa，不能签名，直接安装，需要在app store登录对应的购买购买账号，即可正常使用，永不掉签
             # SELF_SIGN 自签类型，需要签名后，才能正常安装，否则安装后图标为灰色不可用
             # ENT_SIGN 企业签类型，如果该企业签未被注销，则可直接安装，否则需要签名后安装
+            # LINK  链接类型，直接打开网址，广告或宣传用途，需要填写appLink字段
             "appType": "SHAREING",      
             "appCateIndex": 0,      # app分类下标号，此处为0对应上面的分类"福利"
             "appUpdateTime": "2019-10-13T08:00:00+0800", # UTC时间
@@ -91,14 +107,26 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
             "appPackage": "https://xx.com/app.ipa",      # app的ipa包链接
             "appDescription": "App的简短描述"
         },
+
         {
-            "appType": "ENT_SIGN",  #企业签
+            "appType": "ENT_SIGN",  # 企业签
             "appCateIndex": 1,      
             "appUpdateTime": "2019-10-03T08:00:00+0800",
             "appName": "xxx",
 
             # 此字段为app的plist配置链接，如果设置了此字段，appName，appVersion， appImage，appPackage都可省略, 但以上字段如果有设置，则优先级更高
             "appPlist": "https://xxx.plist"
+        },
+
+        {
+            "appType": "LINK",  # 链接类型，需要填写appLink字段
+            "appCateIndex": 1,
+            "appUpdateTime": "2019-12-27T9:30:00+0800",
+            "appName": "GBox官网",
+            "appVersion": "1.0",
+            "appImage": "https://dev.tencent.com/u/wallace_leung/p/AppHub/git/raw/master/Xero/icon512.png",
+            "appLink": "https://gbox.run",  # 目录链接
+            "appDescription": "网页连接测试"
         }
     ]
 }

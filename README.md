@@ -74,17 +74,74 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
 
 4. 将其上传至可公开访问的平台上，例如GitHub，码云，Coding等，得到链接（git平台请复制raw链接），至此即可在GBox中添加该链接，稍等片刻，即可加载源中的app列表
 
-- ### 源规范说明
+- ### 1.1.2新增内容
+1. 增加app隐藏功能，在app对象中设置hide为true，即不会在列表中显示。
+2. 增加源授权功能，即可设置部分或全部app为上锁状态，需要输入密码才能解锁，以下为新增字段:
+> 注意：开启授权源，源必须使用GBox加密，否则无效。此为一次性解锁全部上锁的app
+> 原理：进行加密时，会分离字段lock为true的app下载链接。生成2份文件，即一份为已加密的源文件，另外一份为分离后的app真实下载地址的加密文件(此文件需要上传到服务器)
+> AuthBackendSmapleCode文件夹内附带后台验证逻辑样例，仅供参考，可自行改进完善
 ```
 {
-    "version": "1.0",   # 源版本号，当前为1.0， 只能向下兼容
+    ...,
+    sourceProcessor: {
+        appsUnlock: {
+            authUrl: "https://xxx.com/auth.php",       # 验证地址，即进行解锁时，所提交的密码将传到此链接进行权限校验
+            actions: [                                 # 解锁弹框所显示的选项，此为数组，即可显示多项
+                {
+                title: "联系作者",                      # 解锁弹框的选项标题
+                openUrl: "https://nyxz166.cn/GBox"     # 解锁弹框的选项标题所对应的具体行为，点击后，会跳转到本链接
+                }
+            ],
+            description: "此源需要联系作者授权"           # 源解锁的说明
+        }
+    },
+    
+    "appRepositories": [
+        {
+            "lock": true,                              # 需要上锁的app，添加此字段，并设置为true
+            "hide": true,                              # 非必须字段，若添加此字段，则解锁前隐藏，解锁后才显示
+            "appType": "SELF_SIGN",
+            "appCateIndex": 1,
+            "appUpdateTime": "2020-05-01T08:00:00+0800",
+            "appName": "测试包",
+            "appVersion": "1.0",
+            "appPlist": "https://www.lanzous.com/i7rn4hi",
+            "appDescription": "签名测试用，点下载，然后签名，再安装，如果能正常打开，则证明签名成功"
+        },
+        ....
+    ]
+
+},
+```
+
+- ### 源规范说明
+>以下为完整源规范说明，已更新至v1.1.2
+```
+{
+    "version": "1.1.2",   # 源版本号，当前为1.1.2， 只能向下兼容
     "sourceName": "GBox官方源",     # 源名称 
     "sourceAuthor": "Rosi",        # 源作者
     "sourceLinkTitle": "主页",      # 链接标题，将于源主页的右上角显示 
     "sourceLinkUrl": "https://gbox.run",       # 目标链接
     "sourceImage": "http://xxx.com/src.png",   # 源图片链接
-    "sourceUpdateTime": "2019-10-10T13:00:00+0800",    # 源更新时间(此为UTC时间，即此时间为北京时间-8小时，北京为东八区，所以以+0800表示，)，注意如果修改了app列表，而不更新此时间，GBox不会去解析此源的app列表
+    "sourceUpdateTime": "2019-10-10T13:00:00+0800",    # 源更新时间(此为UTC时间，北京为东八区，所以以+0800表示)，注意如果修改了app列表，而不更新此时间，GBox不会去解析此源的app列表
     "sourceDescription": "源的简单描述",
+
+    # 授权源字段说明
+    sourceProcessor: {
+        appsUnlock: {
+            authUrl: "https://xxx.com/auth.php",       # 验证地址，即进行解锁时，所提交的密码将传到此链接进行权限校验
+            actions: [                                 # 解锁弹框所显示的选项，此为数组，即可显示多项
+                {
+                title: "联系作者",                      # 解锁弹框的选项标题
+                openUrl: "https://nyxz166.cn/GBox"     # 解锁弹框的选项标题所对应的具体行为，点击后，会跳转到本链接
+                }
+            ],
+            description: "此源需要联系作者授权"           # 源解锁的说明
+        }
+    },
+    # End 授权源字段说明
+
 
     # 源的app分类排序，以0为起始计数，如在此排序中"福利"分类的下标为0，"工具"则为1
     "appCategories": [
@@ -127,7 +184,21 @@ GBox软件源旨在构建一个ipa分享生态圈，采用json格式规范。制
             "appImage": "https://dev.tencent.com/u/wallace_leung/p/AppHub/git/raw/master/Xero/icon512.png",
             "appLink": "https://gbox.run",  # 目录链接
             "appDescription": "网页连接测试"
+        },
+
+        # 上锁app样例
+        {
+            "lock": true,                              # 需要上锁的app，添加此字段，并设置为true
+            "hide": true,                              # 非必须字段，若添加此字段，则解锁前隐藏，解锁后才显示
+            "appType": "SELF_SIGN",
+            "appCateIndex": 1,
+            "appUpdateTime": "2020-05-01T08:00:00+0800",
+            "appName": "测试包",
+            "appVersion": "1.0",
+            "appPlist": "https://www.lanzous.com/i7rn4hi",
+            "appDescription": "签名测试用，点下载，然后签名，再安装，如果能正常打开，则证明签名成功"
         }
     ]
 }
 ```
+
